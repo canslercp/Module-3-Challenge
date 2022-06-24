@@ -19,13 +19,11 @@ generateBtn.addEventListener("click", writePassword);
 var generatePassword = function () {
   // Define global variables and arrys
     var i = 0;
-
+    //Use iteration to create a number array from 0 to 9
     var num = [];
-    for(var i = 0; i < 128; i++){
+    for(var i = 0; i < 10; i++){
       num.push(i);
     }
-    console.log(num);
-
     var SP = ["!","@","#","$","%","^","&","*","(",")","_","-","+","=","~"]
     // Use iteration to create an uppercase alphabet array
     var alphaUC = Array.from(Array(26)).map((e, i) => i + 65);
@@ -51,17 +49,42 @@ var generatePassword = function () {
     var useLC = window.confirm("Click OK to confirm using lowercase characters.");
     var useUC = window.confirm("Click OK to confirm using upercase characters,");
 
-  //3. Generate password????????????????
-    if (useSP === true){}
-      // var numSP = 
-      //for (var i=0; i<userChoice; i++) {
-      //  var rnum = Math.floor(Math.random() * SP.length);
-      //  console.log(rnum);
-      //}
+  //Generate password if special char is selected
+    if (useSP === true && useNum === false && useLC === false && useUC === false){
+      
+      //Random generator
+      var rndmSP = '';
+      for (var i=0; i<userChoice; i++) {
+       rndmSP += SP[Math.floor(Math.random() * SP.length)];
+       console.log(rndmSP);
+      }
+      return rndmSP
+  //Generate password if special char and numeric is selected
+  }else if (useSP === true && useNum === true && useLC === false && useUC === false){
+     // Combine num and SP array
+     var numSParray = num.concat(SP);
+      
+     //Random generator
+     var numSP = '';
+     for (var i=0; i<userChoice; i++) {
+      numSP += numSParray[Math.floor(Math.random() * numSParray.length)];
+      console.log(numSP);
+     }
+     return numSP
 
-    else if (useSP === true && useNum === true){}
-    else if (useSP === true && useNum === true && useLC ===true){}
-    else if (useSP === true && useNum === true && useLC ===true && useUC === true){}
+  //Generate password if special char, numeric, and lowercase is selected
+  }else if (useSP === true && useNum === true && useLC ===true && useUC === false){
+    //Combine num, SP, and LC array
+    var numSPLCarray = num.concat(SP, LC);
+
+    //Random generator
+    var numSPLC = '';
+    for (var i=0; i<userChoice; i++) {
+      numSPLC += numSPLCarray[Math.floor(Math.random() * numSPLCarray.length)];
+    }
+      return numSPLC
+  
+  }else if (useSP === true && useNum === true && useLC ===true && useUC === true){}
 
     //return prompt if at least one character type is not selected
     else {
@@ -77,6 +100,6 @@ var generatePassword = function () {
   }
 
   //4. Display password to the page
-  return "Generated password goes here!"
+  
 
 }
